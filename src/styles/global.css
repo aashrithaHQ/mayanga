@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Alex+Brush&family=Noto+Serif+Devanagari:wght@400;500&display=swap');
+
+:root {
+  --ivory: #FBF6F0;
+  --ivory-dark: #F5EDE4;
+  --brown: #2C1810;
+  --brown-light: #4A3025;
+  --rose: #DCA3A0;
+  --rose-dark: #C48A87;
+  --sand: #C4956A;
+  --sand-light: #D9B89A;
+  --indigo: #5B6E8A;
+  --indigo-light: #7B8EA8;
+  --gold: #C9A96E;
+  --gold-light: #DEC89A;
+  --white: #FFFFFF;
+  --border: #E8DDD4;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+  --font-cursive: 'Alex Brush', cursive;
+  --font-sanskrit: 'Noto Serif Devanagari', serif;
+
+  --max-width: 1200px;
+  --gutter: clamp(1rem, 4vw, 3rem);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--brown);
+  background-color: var(--ivory);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--brown);
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); }
+
+a {
+  color: var(--rose);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+a:hover {
+  color: var(--rose-dark);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 2px;
+  background: var(--rose);
+  margin-top: 0.5rem;
+}
+
+.cursive {
+  font-family: var(--font-cursive);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* Decorative divider inspired by ancient manuscript borders */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 3rem 0;
+  color: var(--sand);
+}
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--sand), transparent);
+}
+.divider-symbol {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: var(--sand);
+  opacity: 0.6;
+}
+
+/* Grain texture overlay */
+.grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-primary {
+  background: var(--rose);
+  color: var(--white);
+}
+.btn-primary:hover {
+  background: var(--rose-dark);
+  color: var(--white);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--brown);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover {
+  border-color: var(--rose);
+  color: var(--rose);
+}
+
+/* Search */
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 500px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--white);
+  color: var(--brown);
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+.search-bar input:focus {
+  border-color: var(--rose);
+}
+.search-bar input::placeholder {
+  color: var(--sand);
+}
+
+/* Article card grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    padding: 2.5rem 0;
+  }
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Skip link for a11y */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--brown);
+  color: var(--white);
+  z-index: 10000;
+  font-family: var(--font-body);
+  border-radius: 2px;
+}
+.skip-link:focus {
+  top: 1rem;
+}

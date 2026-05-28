@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: aashrithaHQ/mayanga
+  branch: main
+  base_url: https://api.github.com
+
+publish_mode: editorial_workflow
+media_folder: "public/images/uploads"
+public_folder: "/mayanga/images/uploads"
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    label_singular: "Article"
+    folder: "src/content/articles"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title"
+    format: "frontmatter"
+    extension: "md"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "URL-friendly name (e.g., 'my-article')" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Art", value: "Art" }
+          - { label: "Beauty", value: "Beauty" }
+          - { label: "Fashion", value: "Fashion" }
+          - { label: "Curio", value: "Curio" }
+          - { label: "Stationery", value: "Stationery" }
+          - { label: "Study", value: "Study" }
+      - { label: "Date", name: "date", widget: "string", hint: "e.g., June 3, 2026" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Short summary for cards" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Products (optional)"
+        name: "products"
+        widget: "list"
+        required: false
+        summary: "{{fields.name}}"
+        fields:
+          - { label: "Product Name", name: "name", widget: "string" }
+          - { label: "Product Image", name: "image", widget: "image" }
+          - { label: "Price", name: "price", widget: "string", required: false }
+          - { label: "Affiliate Link", name: "link", widget: "string" }

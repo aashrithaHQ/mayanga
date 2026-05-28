@@ -1,0 +1,138 @@
+---
+const categories = [
+  { slug: 'art', label: 'Art' },
+  { slug: 'beauty', label: 'Beauty' },
+  { slug: 'fashion', label: 'Fashion' },
+  { slug: 'curio', label: 'Curio' },
+  { slug: 'stationery', label: 'Stationery' },
+  { slug: 'study', label: 'Study' },
+];
+
+const { currentPage } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/mayanga/" class="logo cursive" aria-label="Mayanga home">Mayanga</a>
+    <nav class="nav" aria-label="Main navigation">
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-list">
+        {categories.map((cat) => (
+          <li>
+            <a
+              href={`/mayanga/${cat.slug}/`}
+              class={`nav-link ${currentPage === cat.slug ? 'active' : ''}`}
+            >
+              {cat.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(251, 246, 240, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-size: 1.75rem;
+    color: var(--brown);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo:hover {
+    color: var(--brown);
+  }
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+  }
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--brown-light);
+    letter-spacing: 0.04em;
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--rose);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+  .nav-link.active {
+    color: var(--rose);
+  }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--brown);
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: flex;
+    }
+    .nav-list {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: var(--ivory);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem var(--gutter);
+      gap: 0.75rem;
+    }
+    .nav-list.open {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const list = document.querySelector('.nav-list');
+  if (toggle && list) {
+    toggle.addEventListener('click', () => {
+      const open = list.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+  }
+</script>

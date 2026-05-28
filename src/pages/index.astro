@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PolaroidGrid from '../components/PolaroidGrid.astro';
+import CategoryNav from '../components/CategoryNav.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+const featured = articles
+  .filter((a) => a.data.featured)
+  .map((a) => ({ ...a.data }))
+  .slice(0, 4);
+---
+
+<BaseLayout title="Home" description="Mayanga — Discover curated beauty, art, and living.">
+  <Header slot="header" />
+  <PolaroidGrid />
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Latest from the muse</h2>
+      </div>
+      <div class="card-grid">
+        {featured.map((article) => (
+          <ArticleCard
+            title={article.title}
+            excerpt={article.excerpt}
+            slug={article.slug}
+            category={article.category}
+            image={article.image}
+            date={article.date}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  <div class="divider" aria-hidden="true">
+    <span class="divider-symbol">✧</span>
+  </div>
+  <CategoryNav />
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+</style>

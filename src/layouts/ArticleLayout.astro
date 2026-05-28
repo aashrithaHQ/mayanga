@@ -1,0 +1,94 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  category?: string;
+  date?: string;
+}
+
+const { title, description, image, category, date } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} image={image}>
+  <Header slot="header" />
+  <article class="article-page">
+    <div class="container">
+      <div class="article-header">
+        {category && <span class="article-category">{category}</span>}
+        <h1>{title}</h1>
+        {date && <time class="article-date" datetime={date}>{date}</time>}
+      </div>
+      <div class="article-body">
+        <slot />
+      </div>
+    </div>
+  </article>
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .article-page {
+    padding: 3rem 0 5rem;
+  }
+  .article-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+  .article-category {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--rose);
+    margin-bottom: 1rem;
+  }
+  .article-date {
+    display: block;
+    font-family: var(--font-cursive);
+    font-size: 1.15rem;
+    color: var(--sand);
+    margin-top: 0.75rem;
+  }
+  .article-body {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.0625rem;
+    line-height: 1.85;
+  }
+  .article-body p {
+    margin-bottom: 1.5rem;
+  }
+  .article-body h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .article-body h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .article-body img {
+    margin: 2rem 0;
+    border-radius: 4px;
+  }
+  .article-body blockquote {
+    font-family: var(--font-cursive);
+    font-size: 1.5rem;
+    color: var(--rose-dark);
+    text-align: center;
+    padding: 1.5rem 0;
+    margin: 2rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .article-body a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

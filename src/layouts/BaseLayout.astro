@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = 'Mayanga — Discover curated beauty, art, and living.', image } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — Mayanga</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#FBF6F0" />
+  <link rel="icon" type="image/svg+xml" href="/mayanga/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  {image && <meta property="og:image" content={image} />}
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <slot name="header" />
+  <main id="main-content">
+    <slot />
+  </main>
+  <slot name="footer" />
+</body>
+</html>

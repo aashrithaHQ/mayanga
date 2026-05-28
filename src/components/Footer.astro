@@ -1,0 +1,117 @@
+---
+import Newsletter from './Newsletter.astro';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo cursive">Mayanga</span>
+        <p class="footer-tagline sanskrit">सत्यं शिवं सुन्दरम्</p>
+        <p class="footer-sub">Truth. Goodness. Beauty.</p>
+      </div>
+      <div class="footer-newsletter">
+        <Newsletter />
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true">
+      <span class="divider-symbol">✧</span>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; {new Date().getFullYear()} Mayanga. All rights reserved.</p>
+      <p class="footer-affiliate">Affiliate links may be present. We only recommend what we love.</p>
+    </div>
+  </div>
+  <div class="footer-motif" aria-hidden="true">
+    <svg viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 20 Q 25 5, 50 20 T 100 20 T 150 20 T 200 20 T 250 20 T 300 20 T 350 20 T 400 20" fill="none" stroke="var(--border)" stroke-width="0.5"/>
+      <circle cx="200" cy="20" r="3" fill="var(--sand)" opacity="0.3"/>
+      <circle cx="120" cy="20" r="2" fill="var(--sand)" opacity="0.2"/>
+      <circle cx="280" cy="20" r="2" fill="var(--sand)" opacity="0.2"/>
+    </svg>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    padding: 4rem 0 2rem;
+    border-top: 1px solid var(--border);
+    background: var(--ivory-dark);
+    overflow: hidden;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .footer-logo {
+    font-size: 2rem;
+    color: var(--brown);
+    line-height: 1;
+  }
+  .footer-tagline {
+    font-family: var(--font-sanskrit);
+    font-size: 1.1rem;
+    color: var(--indigo);
+    margin-top: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+  .footer-sub {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--sand);
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
+  .footer-newsletter {
+    justify-self: end;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  .footer-copy {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--sand);
+  }
+  .footer-affiliate {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--sand);
+    font-style: italic;
+    opacity: 0.7;
+  }
+  .footer-motif {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.4;
+  }
+  .footer-motif svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 640px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .footer-newsletter {
+      justify-self: start;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

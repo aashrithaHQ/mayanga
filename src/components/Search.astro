@@ -1,0 +1,95 @@
+---
+---
+
+<div class="search-component">
+  <form class="search-bar" role="search" data-search-form>
+    <input type="search" placeholder="Search articles..." aria-label="Search articles" data-search-input />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <div class="search-results" data-search-results hidden></div>
+</div>
+
+<style>
+  .search-component {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .search-results {
+    margin-top: 1rem;
+  }
+  .search-result-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--brown);
+    transition: background 0.2s ease;
+  }
+  .search-result-item:hover {
+    background: var(--ivory-dark);
+  }
+  .search-result-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .search-result-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--rose);
+  }
+  .search-empty {
+    text-align: center;
+    color: var(--sand);
+    font-style: italic;
+    padding: 2rem 0;
+  }
+</style>
+
+<script>
+  (function() {
+    const form = document.querySelector('[data-search-form]');
+    const input = document.querySelector('[data-search-input]');
+    const results = document.querySelector('[data-search-results]');
+
+    if (!form || !input || !results) return;
+
+    let articles = [];
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = input.value.trim().toLowerCase();
+      if (!query) return;
+
+      if (articles.length === 0) {
+        try {
+          const res = await fetch('/mayanga/search-index.json');
+          articles = await res.json();
+        } catch {
+          results.innerHTML = '<p class="search-empty">Search index not available. Try again later.</p>';
+          results.hidden = false;
+          return;
+        }
+      }
+
+      const matches = articles.filter((a) =>
+        a.title.toLowerCase().includes(query) ||
+        a.excerpt.toLowerCase().includes(query) ||
+        a.category.toLowerCase().includes(query)
+      );
+
+      if (matches.length === 0) {
+        results.innerHTML = '<p class="search-empty">No articles found. Try a different search.</p>';
+      } else {
+        results.innerHTML = matches.map((a) => `
+          <a href="/mayanga/blog/${a.slug}/" class="search-result-item">
+            <span class="search-result-category">${a.category}</span>
+            <span class="search-result-title">${a.title}</span>
+          </a>
+        `).join('');
+      }
+      results.hidden = false;
+    });
+  })();
+</script>

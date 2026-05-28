@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
+---
+
+<BaseLayout title="Search" description="Search articles on Mayanga">
+  <Header slot="header" />
+  <section class="section">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="section-title">Search</h1>
+        <p class="page-desc">Find what moves you</p>
+      </div>
+      <Search />
+    </div>
+  </section>
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .page-desc {
+    color: var(--sand);
+    font-size: 1.05rem;
+    margin-top: 0.5rem;
+  }
+</style>

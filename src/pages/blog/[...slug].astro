@@ -1,0 +1,50 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((a) => ({
+    params: { slug: a.data.slug },
+    props: { article: a },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const { title, description, category, date, image, products } = article.data;
+---
+
+<ArticleLayout title={title} description={description} category={category} date={date} image={image}>
+  <Content />
+  {products && products.length > 0 && (
+    <div class="product-section">
+      <h2 class="product-section-title cursive">Shop the edit</h2>
+      <div class="product-grid">
+        {products.map((p) => (
+          <ProductCard image={p.image} name={p.name} price={p.price} link={p.link} />
+        ))}
+      </div>
+    </div>
+  )}
+</ArticleLayout>
+
+<style>
+  .product-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .product-section-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--rose-dark);
+    margin-bottom: 1.5rem;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+</style>

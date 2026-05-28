@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Page Not Found" description="This page does not exist">
+  <Header slot="header" />
+  <section class="section error-page">
+    <div class="container">
+      <h1 class="error-code">404</h1>
+      <p class="error-msg cursive">Lost in the aesthetic</p>
+      <p class="error-desc">This page doesn't exist. Let's get you back.</p>
+      <a href="/mayanga/" class="btn btn-primary">Return home</a>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .error-page {
+    text-align: center;
+    padding: 6rem 0;
+  }
+  .error-code {
+    font-family: var(--font-heading);
+    font-size: clamp(5rem, 15vw, 8rem);
+    color: var(--rose);
+    line-height: 1;
+  }
+  .error-msg {
+    font-size: 1.8rem;
+    color: var(--sand);
+    margin: 0.5rem 0 1rem;
+  }
+  .error-desc {
+    color: var(--brown-light);
+    margin-bottom: 2rem;
+  }
+</style>

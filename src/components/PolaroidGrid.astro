@@ -1,0 +1,108 @@
+---
+import PolaroidCard from './PolaroidCard.astro';
+
+const polaroids = [
+  { image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80', caption: 'Canvas & pigment', link: '/mayanga/art/', rotation: -4, x: 0, y: 0 },
+  { image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80', caption: 'Glow ritual', link: '/mayanga/beauty/', rotation: 5, x: 60, y: 20 },
+  { image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80', caption: 'Silhouette & drape', link: '/mayanga/fashion/', rotation: -3, x: -40, y: -10 },
+  { image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400&q=80', caption: 'Curious object', link: '/mayanga/curio/', rotation: 6, x: 20, y: -30 },
+  { image: 'https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&q=80', caption: 'Paper & ink', link: '/mayanga/stationery/', rotation: -5, x: -50, y: 15 },
+  { image: 'https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?w=400&q=80', caption: 'Quiet focus', link: '/mayanga/study/', rotation: 3, x: 30, y: 25 },
+  { image: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=400&q=80', caption: 'Brushstroke', link: '/mayanga/art/', rotation: -2, x: -20, y: -20 },
+  { image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80', caption: 'Petal soft', link: '/mayanga/beauty/', rotation: 4, x: 50, y: 10 },
+  { image: 'https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=400&q=80', caption: 'Woven stories', link: '/mayanga/fashion/', rotation: -6, x: -30, y: 30 },
+  { image: 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80', caption: 'Vessel & form', link: '/mayanga/curio/', rotation: 2, x: 40, y: -15 },
+  { image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&q=80', caption: 'Ink flow', link: '/mayanga/stationery/', rotation: -4, x: -10, y: -25 },
+  { image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&q=80', caption: 'Deep work', link: '/mayanga/study/', rotation: 5, x: 20, y: 20 },
+];
+---
+
+<section class="polaroid-hero">
+  <div class="polaroid-stage" data-polaroid-stage>
+    {polaroids.map((p, i) => (
+      <div class="polaroid-wrapper" style={`--i: ${i};`}>
+        <PolaroidCard {...p} />
+      </div>
+    ))}
+  </div>
+  <div class="polaroid-overlay">
+    <h1 class="polaroid-title cursive">Mayanga</h1>
+    <p class="polaroid-subtitle">Discover what moves you</p>
+  </div>
+</section>
+
+<style>
+  .polaroid-hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--ivory);
+  }
+  .polaroid-stage {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 6rem 2rem;
+  }
+  .polaroid-wrapper {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .polaroid-wrapper.visible {
+    opacity: 1;
+  }
+
+  .polaroid-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .polaroid-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    color: var(--brown);
+    line-height: 1;
+    text-shadow: 0 2px 20px rgba(251, 246, 240, 0.8);
+  }
+  .polaroid-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--sand);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .polaroid-stage {
+      padding: 5rem 1rem;
+      min-height: 100vh;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const stage = document.querySelector('[data-polaroid-stage]');
+    if (!stage) return;
+
+    const wrappers = stage.querySelectorAll('.polaroid-wrapper');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+    wrappers.forEach((w, i) => {
+      setTimeout(() => observer.observe(w), i * 150);
+    });
+  })();
+</script>
