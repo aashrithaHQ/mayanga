@@ -20,20 +20,20 @@ const { image, caption, link, rotation = 0, x = 0, y = 0 } = Astro.props;
 
 <style>
   .polaroid {
-    position: absolute;
     display: block;
-    width: 200px;
+    width: 100%;
+    max-width: 220px;
     background: var(--white);
     padding: 10px 10px 20px;
     box-shadow: 0 4px 20px rgba(44, 24, 16, 0.1);
-    transform: rotate(var(--rot)) translate(var(--x), var(--y));
+    transform: rotate(var(--rot));
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     text-decoration: none;
     opacity: 0;
     animation: polaroid-enter 0.8s ease forwards;
   }
   .polaroid:hover {
-    transform: rotate(0deg) translate(var(--x), calc(var(--y) - 8px)) scale(1.05);
+    transform: rotate(0deg) scale(1.05);
     box-shadow: 0 8px 40px rgba(44, 24, 16, 0.18);
     z-index: 10;
   }
@@ -65,17 +65,17 @@ const { image, caption, link, rotation = 0, x = 0, y = 0 } = Astro.props;
   @keyframes polaroid-enter {
     from {
       opacity: 0;
-      transform: rotate(var(--rot)) translate(var(--x), calc(var(--y) + 40px)) scale(0.92);
+      transform: rotate(var(--rot)) scale(0.92);
     }
     to {
       opacity: 1;
-      transform: rotate(var(--rot)) translate(var(--x), var(--y)) scale(1);
+      transform: rotate(var(--rot)) scale(1);
     }
   }
 
   @media (max-width: 640px) {
     .polaroid {
-      width: 140px;
+      max-width: 160px;
       padding: 6px 6px 14px;
     }
     .polaroid-caption {

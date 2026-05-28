@@ -18,6 +18,10 @@ const polaroids = [
 ---
 
 <section class="polaroid-hero">
+  <div class="polaroid-header">
+    <h1 class="polaroid-title cursive">Mayanga</h1>
+    <p class="polaroid-subtitle">Discover what moves you</p>
+  </div>
   <div class="polaroid-stage" data-polaroid-stage>
     {polaroids.map((p, i) => (
       <div class="polaroid-wrapper" style={`--i: ${i};`}>
@@ -25,48 +29,21 @@ const polaroids = [
       </div>
     ))}
   </div>
-  <div class="polaroid-overlay">
-    <h1 class="polaroid-title cursive">Mayanga</h1>
-    <p class="polaroid-subtitle">Discover what moves you</p>
-  </div>
 </section>
 
 <style>
   .polaroid-hero {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
+    padding: 4rem 2rem 3rem;
     background: var(--ivory);
   }
-  .polaroid-stage {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    padding: 6rem 2rem;
-  }
-  .polaroid-wrapper {
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-  .polaroid-wrapper.visible {
-    opacity: 1;
-  }
-
-  .polaroid-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .polaroid-header {
     text-align: center;
-    pointer-events: none;
-    z-index: 2;
+    margin-bottom: 3rem;
   }
   .polaroid-title {
     font-size: clamp(3rem, 10vw, 6rem);
     color: var(--brown);
     line-height: 1;
-    text-shadow: 0 2px 20px rgba(251, 246, 240, 0.8);
   }
   .polaroid-subtitle {
     font-family: var(--font-body);
@@ -77,11 +54,29 @@ const polaroids = [
     margin-top: 0.5rem;
     font-weight: 400;
   }
+  .polaroid-stage {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    justify-items: center;
+  }
+  .polaroid-wrapper {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .polaroid-wrapper.visible {
+    opacity: 1;
+  }
 
   @media (max-width: 768px) {
+    .polaroid-hero {
+      padding: 3rem 1rem 2rem;
+    }
     .polaroid-stage {
-      padding: 5rem 1rem;
-      min-height: 100vh;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1.5rem;
     }
   }
 </style>
