@@ -1,0 +1,6 @@
+{
+  "snapshot": { "mode": "none" },
+  "outputDir": "dist/.playwright-cli-output",
+  "outputMode": "stdout",
+  "saveSession": false
+}

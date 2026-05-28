@@ -59,6 +59,15 @@ npm install
 npm run dev
 ```
 
+## Previewing the deployed site
+
+Open a headed Chromium browser pointed at the live site to see how changes look when deployed:
+
+```bash
+playwright-cli close 2>/dev/null
+playwright-cli open --headed --browser chrome --config .playwright/cli.config.json https://aashrithahq.github.io/mayanga/
+```
+
 ## Adding Articles via the CMS
 
 1. Go to `/admin` and log in with GitHub
