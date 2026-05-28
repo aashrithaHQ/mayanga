@@ -2,7 +2,7 @@
 
 ## Previewing changes in the browser
 
-Use `playwright-cli` to open a headed Chromium browser pointing at the live deployed site:
+Use `playwright-cli` with the project's config to open a headed Chromium browser pointing at the live deployed site:
 
 ```bash
 playwright-cli close 2>/dev/null
@@ -15,7 +15,7 @@ Navigate to a specific page:
 playwright-cli goto https://aashrithahq.github.io/mayanga/<slug>/
 ```
 
-Take a screenshot of the current page:
+Take a screenshot of the current page (saves to dist/.playwright-cli-output):
 
 ```bash
 playwright-cli screenshot
@@ -23,7 +23,21 @@ playwright-cli screenshot
 
 Close the browser when done:
 
-```playwright-cli close
+```bash
+playwright-cli close
+```
+
+### Minimizing temp files
+
+- Use `outputMode: "stdout"` in config (already set) to avoid unnecessary file creation
+- Clean up old screenshots periodically: `rm -rf dist/.playwright-cli-output/`
+- Screenshots are named `page-YYYY-MM-DDTHH-MM-SS-MMMZ.png` by default
+
+## Cleanup
+
+**ALWAYS close the browser after testing:**
+```bash
+playwright-cli close
 ```
 
 ## Git workflow
